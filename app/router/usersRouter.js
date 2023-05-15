@@ -5,7 +5,7 @@ const {
 } = require("../controller/userController");
 const { userArray } = require("../model");
 const { HttpResp } = require("../utils/HttpResponse");
-require("../getRequestedData");
+require("../utils/getRequestedData");
 const usersRouter = async (request, response) => {
   const resp = new HttpResp(response);
   if (request.url == "/api/user/register" && request.method == "POST") {

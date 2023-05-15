@@ -6,7 +6,7 @@ const {
   addTag,
   getRawTags,
 } = require("../controller/tagsController");
-require("../getRequestedData");
+require("../utils/getRequestedData");
 
 const TagsRouter = async (request, response) => {
   const resp = new HttpResp(response);

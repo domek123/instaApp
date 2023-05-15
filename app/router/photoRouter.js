@@ -1,7 +1,6 @@
 require("../model");
 require("../controller/fileController");
 require("../controller/jsonController");
-require("../getRequestedData");
 const { savePhoto, deletePhoto } = require("../controller/fileController");
 const {
   getAll,
@@ -11,7 +10,10 @@ const {
   addTags,
   getTags,
 } = require("../controller/jsonController");
+
+require("../utils/getRequestedData");
 const { HttpResp } = require("../utils/HttpResponse");
+
 const getIdFromUrl = (url) => {
   const id = url.split("/").pop();
   return id;
