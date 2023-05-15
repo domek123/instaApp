@@ -1,18 +1,26 @@
 const fs = require("fs");
 const { Image, ImageArray } = require("../model");
 const formidable = require("formidable");
+
+const createFolder = (albumName) => {
+  const dir = `./upload/${albumName}`;
+  try {
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 module.exports = {
+  createFolder: (albumName) => {
+    createFolder(albumName);
+  },
   savePhoto: (request) => {
     const form = new formidable.IncomingForm();
     form.parse(request, async (err, fields, files) => {
-      const dir = `./upload/${fields.album}`;
-      try {
-        if (!fs.existsSync(dir)) {
-          fs.mkdirSync(dir);
-        }
-      } catch (err) {
-        console.error(err);
-      }
+      createFolder(fields.album);
       const oldPath = files.file.path;
 
       const name = files.file.path.split("\\").pop();
