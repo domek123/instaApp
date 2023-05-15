@@ -1,16 +1,17 @@
 const { userArray, User } = require("../model");
+const { createFolder } = require("./fileController");
 const {
   encryptPass,
   createToken,
   verifyToken,
   decryptPass,
 } = require("../utils/userUtils");
+
 const validateEmail = (email) => {
-  return email.includes("@") && email.includes(".") && email.length > 3;
+  return email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g);
 };
 const userExist = (email) => {
-  const userChecked = userArray.findIndex((user) => user.getEmail() == email);
-  return userChecked !== -1;
+  return userArray.findIndex((user) => user.getEmail() == email) !== -1;
 };
 module.exports = {
   registerUser: async (data) => {
@@ -42,7 +43,7 @@ module.exports = {
     if (verifiedToken != null) {
       const { email } = verifiedToken;
       userArray.find((user) => user.getEmail() == email).AuthUser();
-      console.log(userArray);
+      createFolder(email);
     }
     return verifiedToken;
   },
