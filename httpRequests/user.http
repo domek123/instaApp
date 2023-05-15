@@ -1,0 +1,26 @@
+### register user
+POST http://localhost:3000/api/user/register HTTP/1.1
+Content-Type: application/json
+
+{    
+   "name": "name",
+   "lastName": "lastName",
+   "email":"name@email.pl",
+   "password":"password"
+}
+
+### confirm 
+GET http://localhost:3000/api/user/confirm/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hbWVAZW1haWwucGwiLCJwYXNzd29yZCI6IiQyYSQxMCRpcEtzNnlVUVE0bVd3N0d1d05NLmouTklrVFZ6QUJCajVzRWJjWi5mWUlvQVV3T0oveVl5bSIsImlhdCI6MTY4NDE2OTk0MiwiZXhwIjoxNjg0MTY5OTcyfQ.aiPVU7Vv3p_qgvORajrt0-qh_etqqPxy79AuAdRNaEA
+
+### login
+POST http://localhost:3000/api/user/login HTTP/1.1
+Content-Type: application/json
+
+{    
+   "email":"name@email.pl",
+   "password":"password"
+}
+
+### get users
+GET http://localhost:3000/api/user
+
