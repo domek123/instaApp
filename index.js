@@ -6,15 +6,15 @@ const filtersRouter = require(routerPath + "filtersRouter");
 const usersRouter = require(routerPath + "usersRouter");
 require("dotenv").config();
 http
-  .createServer((req, res) => {
+  .createServer(async (req, res) => {
     if (req.url.search("/api/photos") != -1) {
-      photoRouter(req, res);
+      await photoRouter(req, res);
     } else if (req.url.search("/api/tags") != -1) {
-      tagsRouter(req, res);
+      await tagsRouter(req, res);
     } else if (req.url.search("/api/filter") != -1) {
-      filtersRouter(req, res);
+      await filtersRouter(req, res);
     } else if (req.url.search("/api/user") != -1) {
-      usersRouter(req, res);
+      await usersRouter(req, res);
     }
   })
   .listen(process.env.APP_PORT, () =>
