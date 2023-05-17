@@ -13,8 +13,8 @@ class Image {
     ];
     this.tags = [];
   }
-  HistoryChange = (status) => {
-    this.history.push({ status: status, lastModifiedDate: Date.now() });
+  HistoryChange = (status, path) => {
+    this.history.push({ status: status, lastModifiedDate: Date.now(), path });
     this.lastChange = this.history[this.history.length - 1].status;
   };
   ReturnImage = () => {
