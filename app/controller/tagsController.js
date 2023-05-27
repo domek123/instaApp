@@ -12,9 +12,9 @@ module.exports = {
   addTag: (name, popularity) => {
     if (tags.find((tag) => tag.getName() == name) == undefined) {
       tags.push(new Tag(tags.length, name, popularity));
-      return "Dodano nowy tag:" + name;
+      return { message: "Dodano nowy tag:" + name };
     } else {
-      return "podany tag już istnieje";
+      return { message: "podany tag już istnieje" };
     }
   },
 };

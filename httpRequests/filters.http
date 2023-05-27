@@ -16,8 +16,14 @@ PATCH http://localhost:3000/api/filters HTTP/1.1
 Content-Type: application/json
 
 {
-    "id":1684360621425,
+    "id":1685198174083,
     "filter":"tint",
     "options":{"r":255,"g":0,"b":0}
 }
+
+### get photo
+GET http://localhost:3000/api/getfile/1685197685595
+
+### get filtered photo
+GET http://localhost:3000/api/getfile/1685198174083/tint
 

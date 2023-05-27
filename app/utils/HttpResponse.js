@@ -6,7 +6,7 @@ class HttpResp {
     this.response.writeHead(200, {
       "Content-Type": "text/plain;charset=utf-8",
     });
-    this.response.end(data);
+    this.response.end(JSON.stringify(data));
   };
   getCheckedResponse = (data) => {
     if (data == undefined || data == null) {
@@ -22,11 +22,19 @@ class HttpResp {
       this.response.end(JSON.stringify(data));
     }
   };
-  getStringifyResponse = (data) => {
-    this.response.writeHead(200, {
-      "Content-Type": "text/plain;charset=utf-8",
-    });
-    this.response.end(JSON.stringify(data));
+  getPhotoResponse = (data) => {
+    if (!!data.message) {
+      this.response.writeHead(404, {
+        "Content-Type": "text/plain;charset=utf-8",
+      });
+      this.response.end(JSON.stringify(data));
+    } else {
+      this.response.writeHead(200, {
+        "Content-Type": "image/jpg",
+      });
+      this.response.write(data);
+      this.response.end();
+    }
   };
 }
 

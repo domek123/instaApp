@@ -7,7 +7,10 @@ const usersRouter = require(routerPath + "usersRouter");
 require("dotenv").config();
 http
   .createServer(async (req, res) => {
-    if (req.url.search("/api/photos") != -1) {
+    if (
+      req.url.search("/api/photos") != -1 ||
+      req.url.search("/api/getfile") != -1
+    ) {
       await photoRouter(req, res);
     } else if (req.url.search("/api/tags") != -1) {
       await tagsRouter(req, res);

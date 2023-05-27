@@ -30,11 +30,12 @@ module.exports = {
       let rawData = fs.readFileSync(oldPath);
 
       fs.writeFile(newpath, rawData, function (err) {
-        if (err) console.log("XD", err);
-        else {
+        if (err) {
+          return { message: err };
+        } else {
           const image = new Image(fields.album, files.file.name, newpath);
           ImageArray.push(image);
-          return "dodano zdjecie";
+          return { message: "dodano zdjęcie" };
         }
       });
     });
@@ -42,17 +43,39 @@ module.exports = {
   deletePhoto: (id) => {
     const img = ImageArray.find((image) => image.getId() == id);
     if (img == undefined) {
-      return "brak podanego zdjecia";
+      return { message: "brak podanego zdjęcia" };
     } else {
       const path = img.getUrl();
-      console.log(path);
       try {
         fs.unlinkSync(path);
         ImageArray.splice(ImageArray.indexOf(img), 1);
-        return "usunieto zdjecie";
+        return { message: "usunięto zdjęcie" };
       } catch (err) {
-        return err;
+        return { message: err };
       }
+    }
+  },
+  getPhotoById: (id) => {
+    const img = ImageArray.find((image) => image.getId() == id);
+    if (img != undefined) {
+      console.log(img.getUrl());
+      return fs.readFileSync(img.getUrl());
+    } else {
+      return { message: "brak zdjęcia" };
+    }
+  },
+  getFilteredPhoto: (id, filtername) => {
+    const img = ImageArray.find((image) => image.getId() == id);
+
+    if (img != undefined) {
+      const path = img.getUrl().replace(".jpg", "") + "-" + filtername + ".jpg";
+      try {
+        return fs.readFileSync(path);
+      } catch {
+        return { message: "brak zdjecia o podanym filtrze" };
+      }
+    } else {
+      return { message: "brak zdjecia o podanym id" };
     }
   },
 };

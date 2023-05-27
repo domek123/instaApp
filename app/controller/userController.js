@@ -27,15 +27,17 @@ module.exports = {
         const token = await createToken(email, pass);
         userArray.push(new User(name, lastName, email, pass));
 
-        return `skopiuj poniższy link do przeglądarki
+        return {
+          message: `skopiuj poniższy link do przeglądarki
                     http://localhost:3000/api/user/confirm/${token}
                     w celu potwierdzenia konta
-                    Uwaga: link jest ważny przez godzinę`;
+                    Uwaga: link jest ważny przez godzinę`,
+        };
       } else {
-        return "user o podanym mailu istnieje";
+        return { message: "user o podanym mailu istnieje" };
       }
     } else {
-      return "niepoprawne dane";
+      return { message: "niepoprawne dane" };
     }
   },
   authUser: async (token) => {
@@ -53,7 +55,7 @@ module.exports = {
     console.log(user);
     if (user != undefined && decryptPass(password, user.getPassword())) {
       const token = await createToken(email, user.getPassword());
-      return token;
+      return { token };
     }
   },
 };

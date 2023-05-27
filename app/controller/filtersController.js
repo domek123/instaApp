@@ -15,7 +15,7 @@ module.exports = {
             resolve({ message: "url_not_found" });
           }
         } catch (err) {
-          reject(err.mesage);
+          reject({ message: err.mesage });
         }
       });
     } else {

@@ -21,7 +21,7 @@ const usersRouter = async (request, response) => {
     let data = await getRequestData(request);
     resp.getResponse(await loginUser(JSON.parse(data)));
   } else if (request.url == "/api/user" && request.method == "GET") {
-    resp.getStringifyResponse(userArray);
+    resp.getResponse(userArray);
   }
 };
 
