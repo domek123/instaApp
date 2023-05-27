@@ -28,34 +28,43 @@ module.exports = {
         userArray.push(new User(name, lastName, email, pass));
 
         return {
+          code: 200,
           message: `skopiuj poniższy link do przeglądarki
                     http://localhost:3000/api/user/confirm/${token}
                     w celu potwierdzenia konta
                     Uwaga: link jest ważny przez godzinę`,
         };
       } else {
-        return { message: "user o podanym mailu istnieje" };
+        return { code: 409, message: "user o podanym mailu istnieje" };
       }
     } else {
-      return { message: "niepoprawne dane" };
+      return { code: 400, message: "niepoprawne dane" };
     }
   },
   authUser: async (token) => {
     const verifiedToken = await verifyToken(token);
     if (verifiedToken != null) {
       const { email } = verifiedToken;
-      userArray.find((user) => user.getEmail() == email).AuthUser();
-      createFolder(email);
+      const user = userArray.find((user) => user.getEmail() == email);
+      if (user != undefined) {
+        user.AuthUser();
+        createFolder(email);
+        return { code: 200, message: verifiedToken };
+      } else {
+        return { code: 404, message: "brak usera" };
+      }
+    } else {
+      return { code: 401, message: "token wygasł" };
     }
-    return verifiedToken;
   },
   loginUser: async (data) => {
     const { email, password } = data;
     const user = userArray.find((user) => user.getEmail() == email);
-    console.log(user);
     if (user != undefined && decryptPass(password, user.getPassword())) {
       const token = await createToken(email, user.getPassword());
-      return { token };
+      return { code: 200, message: token };
+    } else {
+      return { code: 401, message: "nie udalo sie zalogować" };
     }
   },
 };

@@ -1,4 +1,4 @@
-const { HttpResp } = require("../utils/HttpResponse");
+const { HttpResp } = require("../HttpResponse");
 const {
   getSelectedTag,
   getTags,

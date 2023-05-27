@@ -4,7 +4,7 @@ const {
   loginUser,
 } = require("../controller/userController");
 const { userArray } = require("../model");
-const { HttpResp } = require("../utils/HttpResponse");
+const { HttpResp } = require("../HttpResponse");
 require("../utils/getRequestedData");
 const usersRouter = async (request, response) => {
   const resp = new HttpResp(response);
@@ -17,12 +17,12 @@ const usersRouter = async (request, response) => {
     method == "GET"
   ) {
     const data = await authUser(url.split("/").pop());
-    resp.getCheckedResponse(data);
+    resp.getResponse(data);
   } else if (url == "/api/user/login" && method == "POST") {
     let data = await getRequestData(request);
     resp.getResponse(await loginUser(JSON.parse(data)));
   } else if (url == "/api/user" && method == "GET") {
-    resp.getResponse(userArray);
+    resp.getResponse({ code: 200, message: userArray });
   }
 };
 
