@@ -8,19 +8,20 @@ const { HttpResp } = require("../utils/HttpResponse");
 require("../utils/getRequestedData");
 const usersRouter = async (request, response) => {
   const resp = new HttpResp(response);
-  if (request.url == "/api/user/register" && request.method == "POST") {
+  const { method, url } = request;
+  if (url == "/api/user/register" && method == "POST") {
     let data = await getRequestData(request);
     resp.getResponse(await registerUser(JSON.parse(data)));
   } else if (
-    request.url.match(/\/api\/user\/confirm\/([A-Za-z0-9]+)/) &&
-    request.method == "GET"
+    url.match(/\/api\/user\/confirm\/([A-Za-z0-9]+)/) &&
+    method == "GET"
   ) {
-    const data = await authUser(request.url.split("/").pop());
+    const data = await authUser(url.split("/").pop());
     resp.getCheckedResponse(data);
-  } else if (request.url == "/api/user/login" && request.method == "POST") {
+  } else if (url == "/api/user/login" && method == "POST") {
     let data = await getRequestData(request);
     resp.getResponse(await loginUser(JSON.parse(data)));
-  } else if (request.url == "/api/user" && request.method == "GET") {
+  } else if (url == "/api/user" && method == "GET") {
     resp.getResponse(userArray);
   }
 };

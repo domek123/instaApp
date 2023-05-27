@@ -1,5 +1,4 @@
 const { HttpResp } = require("../utils/HttpResponse");
-require("../controller/tagsController");
 const {
   getSelectedTag,
   getTags,
@@ -10,17 +9,15 @@ require("../utils/getRequestedData");
 
 const TagsRouter = async (request, response) => {
   const resp = new HttpResp(response);
-  if (request.url == "/api/tags/raw" && request.method == "GET") {
+  const { method, url } = request;
+  if (url == "/api/tags/raw" && method == "GET") {
     resp.getResponse(getRawTags());
-  } else if (request.url == "/api/tags" && request.method == "GET") {
+  } else if (url == "/api/tags" && method == "GET") {
     resp.getResponse(getTags());
-  } else if (
-    request.url.match(/\/api\/tags\/([0-9]+)/) &&
-    request.method == "GET"
-  ) {
-    const id = request.url.split("/").pop();
+  } else if (url.match(/\/api\/tags\/([0-9]+)/) && method == "GET") {
+    const id = url.split("/").pop();
     resp.getResponse(getSelectedTag(id));
-  } else if (request.url == "/api/tags" && request.method == "POST") {
+  } else if (url == "/api/tags" && method == "POST") {
     let data = await getRequestData(request);
     const { name, popularity } = JSON.parse(data);
     const msg = addTag(name, popularity);
