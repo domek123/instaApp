@@ -32,62 +32,68 @@ const photoRouter = async (request, response) => {
     // czytam dane z nagłowka
     let token = headerAuth.split(" ")[1];
     if (verifyToken(token) != null) {
+      if (url == "/api/photos" && method == "GET") {
+        resp.getResponse(getAll());
+      } else if (url == "/api/photos" && method == "POST") {
+        savePhoto(request);
+        response.writeHead(200, {
+          "Content-Type": "text/plain;charset=utf-8",
+        });
+        response.end(JSON.stringify({ message: "dodano zdjęcie" }));
+      } else if (url.match(/\/api\/photos\/([0-9]+)/) && method == "GET") {
+        let data = getSelected(getIdFromUrl(url));
+        resp.getResponse(data);
+      } else if (url.match(/\/api\/photos\/([0-9]+)/) && method == "DELETE") {
+        const data = deletePhoto(getIdFromUrl(url));
+        resp.getResponse(data);
+      } else if (url == "/api/photos" && method == "PATCH") {
+        let data = await getRequestData(request);
+        const { id, change } = JSON.parse(data);
+        const returnedData = changePhoto(id, change);
+        resp.getResponse(returnedData);
+      } else if (url == "/api/photos/tags" && method == "PATCH") {
+        let data = await getRequestData(request);
+        const { id, name, popularity } = JSON.parse(data);
+        const returnedData = addTag(id, name, popularity);
+        resp.getResponse(returnedData);
+      } else if (url == "/api/photos/tags/mass" && method == "PATCH") {
+        let data = await getRequestData(request);
+        const { id, tags } = JSON.parse(data);
+        const returnedData = addTags(id, tags);
+        resp.getResponse(returnedData);
+      } else if (
+        url.match(/\/api\/photos\/tags\/([0-9]+)/) &&
+        method == "GET"
+      ) {
+        const id = getIdFromUrl(url);
+        const returnedData = getTags(id);
+        resp.getResponse(returnedData);
+      } else if (
+        url.match(/\/api\/photos\/([a-zA-Z0-9@.]+)/) &&
+        method == "GET"
+      ) {
+        const albumName = url.split("/").pop();
+        console.log(albumName);
+        const data = getImagesFromAlbum(albumName);
+        resp.getResponse(data);
+      } else if (
+        url.match(/\/api\/getfile\/([0-9]+)\/([a-z]+)/) &&
+        method == "GET"
+      ) {
+        const filtername = url.split("/").pop();
+        const id = url.split("/")[url.split("/").length - 2];
+        const data = getFilteredPhoto(id, filtername);
+        resp.getPhotoResponse(data);
+      } else if (url.match(/\/api\/getfile\/([0-9]+)/) && method == "GET") {
+        const id = getIdFromUrl(url);
+        const data = getPhotoById(id);
+        resp.getPhotoResponse(data);
+      }
     } else {
       resp.getResponse(
         JSON.stringify({ code: 401, message: "wrong authentication" })
       );
     }
-  }
-  if (url == "/api/photos" && method == "GET") {
-    resp.getResponse(getAll());
-  } else if (url == "/api/photos" && method == "POST") {
-    savePhoto(request);
-    response.writeHead(200, {
-      "Content-Type": "text/plain;charset=utf-8",
-    });
-    response.end(JSON.stringify({ message: "dodano zdjęcie" }));
-  } else if (url.match(/\/api\/photos\/([0-9]+)/) && method == "GET") {
-    let data = getSelected(getIdFromUrl(url));
-    resp.getResponse(data);
-  } else if (url.match(/\/api\/photos\/([0-9]+)/) && method == "DELETE") {
-    const data = deletePhoto(getIdFromUrl(url));
-    resp.getResponse(data);
-  } else if (url == "/api/photos" && method == "PATCH") {
-    let data = await getRequestData(request);
-    const { id, change } = JSON.parse(data);
-    const returnedData = changePhoto(id, change);
-    resp.getResponse(returnedData);
-  } else if (url == "/api/photos/tags" && method == "PATCH") {
-    let data = await getRequestData(request);
-    const { id, name, popularity } = JSON.parse(data);
-    const returnedData = addTag(id, name, popularity);
-    resp.getResponse(returnedData);
-  } else if (url == "/api/photos/tags/mass" && method == "PATCH") {
-    let data = await getRequestData(request);
-    const { id, tags } = JSON.parse(data);
-    const returnedData = addTags(id, tags);
-    resp.getResponse(returnedData);
-  } else if (url.match(/\/api\/photos\/tags\/([0-9]+)/) && method == "GET") {
-    const id = getIdFromUrl(url);
-    const returnedData = getTags(id);
-    resp.getResponse(returnedData);
-  } else if (url.match(/\/api\/photos\/([a-zA-Z0-9@.]+)/) && method == "GET") {
-    const albumName = url.split("/").pop();
-    console.log(albumName);
-    const data = getImagesFromAlbum(albumName);
-    resp.getResponse(data);
-  } else if (
-    url.match(/\/api\/getfile\/([0-9]+)\/([a-z]+)/) &&
-    method == "GET"
-  ) {
-    const filtername = url.split("/").pop();
-    const id = url.split("/")[url.split("/").length - 2];
-    const data = getFilteredPhoto(id, filtername);
-    resp.getPhotoResponse(data);
-  } else if (url.match(/\/api\/getfile\/([0-9]+)/) && method == "GET") {
-    const id = getIdFromUrl(url);
-    const data = getPhotoById(id);
-    resp.getPhotoResponse(data);
   }
 };
 
