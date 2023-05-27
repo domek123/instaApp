@@ -12,6 +12,7 @@ const {
   addTag,
   addTags,
   getTags,
+  getImagesFromAlbum,
 } = require("../controller/jsonController");
 
 require("../utils/getRequestedData");
@@ -40,8 +41,11 @@ const photoRouter = async (request, response) => {
   if (url == "/api/photos" && method == "GET") {
     resp.getResponse(getAll());
   } else if (url == "/api/photos" && method == "POST") {
-    const data = savePhoto(request);
-    resp.getResponse(data);
+    savePhoto(request);
+    response.writeHead(200, {
+      "Content-Type": "text/plain;charset=utf-8",
+    });
+    response.end(JSON.stringify({ message: "dodano zdjęcie" }));
   } else if (url.match(/\/api\/photos\/([0-9]+)/) && method == "GET") {
     let data = getSelected(getIdFromUrl(url));
     resp.getResponse(data);
@@ -67,6 +71,11 @@ const photoRouter = async (request, response) => {
     const id = getIdFromUrl(url);
     const returnedData = getTags(id);
     resp.getResponse(returnedData);
+  } else if (url.match(/\/api\/photos\/([a-zA-Z0-9@.]+)/) && method == "GET") {
+    const albumName = url.split("/").pop();
+    console.log(albumName);
+    const data = getImagesFromAlbum(albumName);
+    resp.getResponse(data);
   } else if (
     url.match(/\/api\/getfile\/([0-9]+)\/([a-z]+)/) &&
     method == "GET"

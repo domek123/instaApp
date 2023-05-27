@@ -11,7 +11,7 @@ Content-Type: image/jpeg
 Content-Disposition: form-data; name="album"
 Content-Type: text/plain
 
-albumy
+album
 ------FormBoundary1234
 
 #####
@@ -31,7 +31,10 @@ Content-Type: application/json
 }
 
 ####
-DELETE http://localhost:3000/api/photos/1681720626953 HTTP/1.1
+DELETE http://localhost:3000/api/photos/1681720626953 HTTP/1.1  
+
+### 
+GET http://localhost:3000/api/photos/album@ca.som HTTP/1.1
 
 
 

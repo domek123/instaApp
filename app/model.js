@@ -42,6 +42,9 @@ class Image {
   getTags() {
     return this.tags;
   }
+  getAlbumName() {
+    return this.album;
+  }
 }
 
 let ImageArray = [];

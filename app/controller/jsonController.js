@@ -49,4 +49,10 @@ module.exports = {
       return { code: 404, message: "brak zdjecia o podanym id" };
     }
   },
+  getImagesFromAlbum: (folderName) => {
+    const albumImages = ImageArray.filter(
+      (img) => img.getAlbumName() == folderName
+    );
+    return { code: 200, message: albumImages };
+  },
 };

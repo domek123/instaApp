@@ -27,15 +27,15 @@ module.exports = {
 
       var newpath = dirn + `upload/${fields.album}/${name}.jpg`;
       let rawData = fs.readFileSync(oldPath);
-      fs.writeFileSync(newpath, rawData, function (err) {
+      fs.writeFile(newpath, rawData, function (err) {
         if (err) {
           return { code: 400, message: err };
         } else {
-          ImageArray.push(new Image(fields.album, files.file.name, newpath));
+          const img = new Image(fields.album, files.file.name, newpath);
+          ImageArray.push(img);
         }
       });
     });
-    return { code: 200, message: "dodano zdjęcie" };
   },
   deletePhoto: (id) => {
     const img = ImageArray.find((image) => image.getId() == id);
