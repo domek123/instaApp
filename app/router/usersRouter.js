@@ -11,7 +11,8 @@ const usersRouter = async (request, response) => {
   const { method, url } = request;
   if (url == "/api/user/register" && method == "POST") {
     let data = await getRequestData(request);
-    resp.getResponse(await registerUser(JSON.parse(data)));
+    data = await registerUser(JSON.parse(data));
+    resp.getResponse(data);
   } else if (
     url.match(/\/api\/user\/confirm\/([A-Za-z0-9]+)/) &&
     method == "GET"

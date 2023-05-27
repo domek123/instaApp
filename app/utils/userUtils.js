@@ -3,12 +3,12 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const encryptPass = async (password) => {
   let encryptedPassword = await bcrypt.hash(password, 10);
-  return { code: 200, message: encryptedPassword };
+  return encryptedPassword;
 };
 
 const decryptPass = async (userpass, encrypted) => {
   let decrypted = await bcrypt.compare(userpass, encrypted);
-  return { code: 200, message: decrypted };
+  return decrypted;
 };
 
 const createToken = async (email, password) => {
@@ -22,7 +22,7 @@ const createToken = async (email, password) => {
       expiresIn: "10m",
     }
   );
-  return { code: 200, message: token };
+  return token;
 };
 const verifyToken = async (token) => {
   try {
