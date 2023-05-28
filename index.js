@@ -5,6 +5,19 @@ const tagsRouter = require(routerPath + "tagsRouter");
 const filtersRouter = require(routerPath + "filtersRouter");
 const usersRouter = require(routerPath + "usersRouter");
 require("dotenv").config();
+const ip = Object.values(require("os").networkInterfaces()).reduce(
+  (r, list) =>
+    r.concat(
+      list.reduce(
+        (rr, i) =>
+          rr.concat((i.family === "IPv4" && !i.internal && i.address) || []),
+        []
+      )
+    ),
+  []
+);
+
+console.log(ip);
 http
   .createServer(async (req, res) => {
     if (

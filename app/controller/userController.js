@@ -15,22 +15,18 @@ const userExist = (email) => {
 };
 module.exports = {
   registerUser: async (data) => {
-    const { name, lastName, email, password } = data;
-    if (
-      name != "" &&
-      lastName != "" &&
-      validateEmail(email) &&
-      password != ""
-    ) {
+    const { name, email, password } = data;
+    console.log(name, email, password);
+    if (name != "" && validateEmail(email) && password != "") {
       if (!userExist(email)) {
         const pass = await encryptPass(password);
         const token = await createToken(email, pass);
-        userArray.push(new User(name, lastName, email, pass));
+        userArray.push(new User(name, email, pass));
 
         return {
           code: 200,
           message: `skopiuj poniższy link do przeglądarki
-                    http://localhost:3000/api/user/confirm/${token}
+                    http://192.168.0.176:3000/api/user/confirm/${token}
                     w celu potwierdzenia konta
                     Uwaga: link jest ważny przez godzinę`,
         };
@@ -49,6 +45,7 @@ module.exports = {
       if (user != undefined) {
         user.AuthUser();
         createFolder(email);
+        user.setToken(verifiedToken);
         return { code: 200, message: verifiedToken };
       } else {
         return { code: 404, message: "brak usera" };

@@ -5,7 +5,7 @@ class HttpResp {
   getResponse = (data) => {
     const { code, message } = data;
     this.response.writeHead(code, {
-      "Content-Type": "text/plain;charset=utf-8",
+      "Content-Type": "application/json",
     });
     this.response.end(JSON.stringify({ message: message }));
   };
@@ -14,7 +14,7 @@ class HttpResp {
     const { code, message } = data;
     if (code != 200) {
       this.response.writeHead(code, {
-        "Content-Type": "text/plain;charset=utf-8",
+        "Content-Type": "application/json",
       });
       this.response.end(JSON.stringify({ message: message }));
     } else {

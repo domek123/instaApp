@@ -104,13 +104,13 @@ const tags = baseTags.map((tag, index) => {
 //user
 
 class User {
-  constructor(name, lastName, email, password) {
+  constructor(name, email, password) {
     this.id = Math.floor(Math.random() * 10000);
     this.name = name;
-    this.lastName = lastName;
     this.email = email;
     this.password = password;
     this.confirmed = false;
+    this.token = "";
   }
   getEmail = () => {
     return this.email;
@@ -121,6 +121,9 @@ class User {
   AuthUser = () => {
     this.confirmed = true;
   };
+  setToken(token) {
+    this.token = token;
+  }
 }
 
 let userArray = [];
