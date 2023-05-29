@@ -1,0 +1,14 @@
+###
+GET http://localhost:3000/api/profile HTTP/1.1
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hbWVAZW1haWwucGwiLCJwYXNzd29yZCI6IiQyYSQxMCRRdWsvV2EwdllJOU5uQlk2aTN1aDhPam9RelBuMXVNWjZQYXJzNVpSc2lYNU1FVER4SVBjcSIsImlhdCI6MTY4NTM0Nzg2NSwiZXhwIjoxNjg1MzQ4NDY1fQ.1Czf9q5VY2n4baCnmWoSgKyhwNjC8XOZXQqHMxyeiWc
+###
+PATCH http://localhost:3000/api/profile HTTP/1.1
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hbWVAZW1haWwucGwiLCJwYXNzd29yZCI6IiQyYSQxMCRLcUZnYmZqTVlXSm1SeUtXN29EUkV1endFSnVOMG1YLzIvdEx2Yy5hR21rRFBsdTU3N2Y5LiIsImlhdCI6MTY4NTM0Nzk4NSwiZXhwIjoxNjg1MzQ4NTg1fQ.jdUbl4Jwws076Inj21lWH4RPAGUhKROhQCwdwkJOM9Q
+Content-Type: "application/json"
+
+
+{
+    "name":"dominik",
+    "email":"dominik@aa.com"
+    
+}

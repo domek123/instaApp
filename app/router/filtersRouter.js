@@ -1,6 +1,7 @@
 const { getMetadata, filterPhoto } = require("../controller/filtersController");
 require("../utils/getRequestedData");
 const { HttpResp } = require("../HttpResponse");
+const { verifyToken } = require("../utils/userUtils");
 const filtersRouter = async (request, res) => {
   const resp = new HttpResp(res);
   const { method, url } = request;

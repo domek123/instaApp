@@ -4,6 +4,7 @@ const photoRouter = require(routerPath + "photoRouter");
 const tagsRouter = require(routerPath + "tagsRouter");
 const filtersRouter = require(routerPath + "filtersRouter");
 const usersRouter = require(routerPath + "usersRouter");
+const profileRouter = require(routerPath + "profileRouter")
 require("dotenv").config();
 const ip = Object.values(require("os").networkInterfaces()).reduce(
   (r, list) =>
@@ -31,6 +32,8 @@ http
       await filtersRouter(req, res);
     } else if (req.url.search("/api/user") != -1) {
       await usersRouter(req, res);
+    } else if(req.url.search("/api/profile") != -1){
+      await profileRouter(req,res);
     }
   })
   .listen(process.env.APP_PORT, () =>

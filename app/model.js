@@ -124,6 +124,15 @@ class User {
   setToken(token) {
     this.token = token;
   }
+  getToken(){
+    return this.token
+  }
+  setEmail(email){
+    this.email = email
+  }
+  setName(name){
+    this.name = name
+  }
 }
 
 let userArray = [];

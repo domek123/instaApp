@@ -73,7 +73,6 @@ const photoRouter = async (request, response) => {
         method == "GET"
       ) {
         const albumName = url.split("/").pop();
-        console.log(albumName);
         const data = getImagesFromAlbum(albumName);
         resp.getResponse(data);
       } else if (

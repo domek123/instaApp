@@ -16,7 +16,6 @@ const userExist = (email) => {
 module.exports = {
   registerUser: async (data) => {
     const { name, email, password } = data;
-    console.log(name, email, password);
     if (name != "" && validateEmail(email) && password != "") {
       if (!userExist(email)) {
         const pass = await encryptPass(password);
@@ -38,14 +37,15 @@ module.exports = {
     }
   },
   authUser: async (token) => {
+    console.log(token)
     const verifiedToken = await verifyToken(token);
+
     if (verifiedToken != null) {
       const { email } = verifiedToken;
       const user = userArray.find((user) => user.getEmail() == email);
       if (user != undefined) {
         user.AuthUser();
         createFolder(email);
-        user.setToken(verifiedToken);
         return { code: 200, message: verifiedToken };
       } else {
         return { code: 404, message: "brak usera" };
@@ -59,6 +59,7 @@ module.exports = {
     const user = userArray.find((user) => user.getEmail() == email);
     if (user != undefined && decryptPass(password, user.getPassword())) {
       const token = await createToken(email, user.getPassword());
+      user.setToken(token)
       return { code: 200, message: token };
     } else {
       return { code: 401, message: "nie udalo sie zalogować" };

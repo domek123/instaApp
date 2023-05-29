@@ -6,7 +6,7 @@ const {
   getRawTags,
 } = require("../controller/tagsController");
 require("../utils/getRequestedData");
-
+const { verifyToken } = require("../utils/userUtils");
 const TagsRouter = async (request, response) => {
   const resp = new HttpResp(response);
   const { method, url } = request;
