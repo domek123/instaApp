@@ -24,10 +24,7 @@ module.exports = {
 
         return {
           code: 200,
-          message: `skopiuj poniższy link do przeglądarki
-                    http://192.168.0.176:3000/api/user/confirm/${token}
-                    w celu potwierdzenia konta
-                    Uwaga: link jest ważny przez godzinę`,
+          message: `http://192.168.0.176:3000/api/user/confirm/${token}`,
         };
       } else {
         return { code: 409, message: "user o podanym mailu istnieje" };
@@ -37,7 +34,7 @@ module.exports = {
     }
   },
   authUser: async (token) => {
-    console.log(token)
+    console.log(token);
     const verifiedToken = await verifyToken(token);
 
     if (verifiedToken != null) {
@@ -57,9 +54,18 @@ module.exports = {
   loginUser: async (data) => {
     const { email, password } = data;
     const user = userArray.find((user) => user.getEmail() == email);
-    if (user != undefined && decryptPass(password, user.getPassword())) {
-      const token = await createToken(email, user.getPassword());
-      user.setToken(token)
+    console.log(email, password, user);
+
+    if (
+      user != undefined &&
+      (await decryptPass(password, user.getPassword()))
+    ) {
+      console.log(await decryptPass(password, user.getPassword()));
+      let token = await createToken(email, user.getPassword());
+      if (user.getToken() != "") {
+        token = user.getToken();
+      }
+      user.setToken(token);
       return { code: 200, message: token };
     } else {
       return { code: 401, message: "nie udalo sie zalogować" };
