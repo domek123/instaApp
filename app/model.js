@@ -9,14 +9,14 @@ class Image {
       {
         status: "original",
         lastModifiedDate: Date.now(),
-        path: url,
       },
     ];
     this.tags = [];
   }
   HistoryChange = (status, path) => {
-    this.history.push({ status: status, lastModifiedDate: Date.now(), path });
-    this.lastChange = this.history[this.history.length - 1].status;
+    this.history.push({ status: status, lastModifiedDate: Date.now() });
+    this.lastChange = status;
+    this.url = path;
   };
   getId = () => {
     return this.id;
