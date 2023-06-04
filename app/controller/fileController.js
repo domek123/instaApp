@@ -29,7 +29,7 @@ module.exports = {
       let rawData = fs.readFileSync(oldPath);
       fs.writeFile(newpath, rawData, function (err) {
         if (err) {
-          return { code: 400, message: err };
+          return { code: 400, response: err };
         } else {
           const img = new Image(fields.album, files.file.name, newpath);
           ImageArray.push(img);
@@ -40,24 +40,24 @@ module.exports = {
   deletePhoto: (id) => {
     const img = ImageArray.find((image) => image.getId() == id);
     if (img == undefined) {
-      return { code: 404, message: "brak podanego zdjęcia" };
+      return { code: 404, response: "brak podanego zdjęcia" };
     } else {
       const path = img.getUrl();
       try {
         fs.unlinkSync(path);
         ImageArray.splice(ImageArray.indexOf(img), 1);
-        return { code: 200, message: "usunięto zdjęcie" };
+        return { code: 200, response: "usunięto zdjęcie" };
       } catch (err) {
-        return { code: 400, message: err };
+        return { code: 400, response: err };
       }
     }
   },
   getPhotoById: (id) => {
     const img = ImageArray.find((image) => image.getId() == id);
     if (img != undefined) {
-      return { code: 200, message: fs.readFileSync(img.getUrl()) };
+      return { code: 200, response: fs.readFileSync(img.getUrl()) };
     } else {
-      return { code: 404, message: "brak zdjęcia" };
+      return { code: 404, response: "brak zdjęcia" };
     }
   },
   getFilteredPhoto: (id, filtername) => {
@@ -66,12 +66,12 @@ module.exports = {
     if (img != undefined) {
       const path = img.getUrl().replace(".jpg", "") + "-" + filtername + ".jpg";
       try {
-        return { code: 200, message: fs.readFileSync(path) };
+        return { code: 200, response: fs.readFileSync(path) };
       } catch {
-        return { code: 404, message: "brak zdjecia o podanym filtrze" };
+        return { code: 404, response: "brak zdjecia o podanym filtrze" };
       }
     } else {
-      return { code: 404, message: "brak zdjecia o podanym id" };
+      return { code: 404, response: "brak zdjecia o podanym id" };
     }
   },
 };

@@ -9,6 +9,7 @@ class Image {
       {
         status: "original",
         lastModifiedDate: Date.now(),
+        path: url,
       },
     ];
     this.tags = [];
@@ -16,16 +17,6 @@ class Image {
   HistoryChange = (status, path) => {
     this.history.push({ status: status, lastModifiedDate: Date.now(), path });
     this.lastChange = this.history[this.history.length - 1].status;
-  };
-  ReturnImage = () => {
-    return {
-      id: this.id,
-      album: this.album,
-      originalName: this.originalName,
-      url: this.url,
-      lastChange: this.lastChange,
-      history: this.history,
-    };
   };
   getId = () => {
     return this.id;
@@ -124,14 +115,14 @@ class User {
   setToken(token) {
     this.token = token;
   }
-  getToken(){
-    return this.token
+  getToken() {
+    return this.token;
   }
-  setEmail(email){
-    this.email = email
+  setEmail(email) {
+    this.email = email;
   }
-  setName(name){
-    this.name = name
+  setName(name) {
+    this.name = name;
   }
 }
 

@@ -24,17 +24,16 @@ module.exports = {
 
         return {
           code: 200,
-          message: `http://192.168.0.176:3000/api/user/confirm/${token}`,
+          response: `http://192.168.0.176:3000/api/user/confirm/${token}`,
         };
       } else {
-        return { code: 409, message: "user o podanym mailu istnieje" };
+        return { code: 409, response: "user o podanym mailu istnieje" };
       }
     } else {
-      return { code: 400, message: "niepoprawne dane" };
+      return { code: 400, response: "niepoprawne dane" };
     }
   },
   authUser: async (token) => {
-    console.log(token);
     const verifiedToken = await verifyToken(token);
 
     if (verifiedToken != null) {
@@ -43,32 +42,30 @@ module.exports = {
       if (user != undefined) {
         user.AuthUser();
         createFolder(email);
-        return { code: 200, message: verifiedToken };
+        return { code: 200, response: verifiedToken };
       } else {
-        return { code: 404, message: "brak usera" };
+        return { code: 404, response: "brak usera" };
       }
     } else {
-      return { code: 401, message: "token wygasł" };
+      return { code: 401, response: "token wygasł" };
     }
   },
   loginUser: async (data) => {
     const { email, password } = data;
     const user = userArray.find((user) => user.getEmail() == email);
-    console.log(email, password, user);
 
     if (
       user != undefined &&
       (await decryptPass(password, user.getPassword()))
     ) {
-      console.log(await decryptPass(password, user.getPassword()));
       let token = await createToken(email, user.getPassword());
       if (user.getToken() != "") {
         token = user.getToken();
       }
       user.setToken(token);
-      return { code: 200, message: token };
+      return { code: 200, response: token };
     } else {
-      return { code: 401, message: "nie udalo sie zalogować" };
+      return { code: 401, response: "nie udalo sie zalogować" };
     }
   },
 };

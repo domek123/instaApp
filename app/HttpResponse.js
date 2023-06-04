@@ -3,25 +3,25 @@ class HttpResp {
     this.response = response;
   }
   getResponse = (data) => {
-    const { code, message } = data;
+    const { code, response } = data;
     this.response.writeHead(code, {
       "Content-Type": "application/json",
     });
-    this.response.end(JSON.stringify({ message: message }));
+    this.response.end(JSON.stringify({ response: response }));
   };
 
   getPhotoResponse = (data) => {
-    const { code, message } = data;
+    const { code, response } = data;
     if (code != 200) {
       this.response.writeHead(code, {
         "Content-Type": "application/json",
       });
-      this.response.end(JSON.stringify({ message: message }));
+      this.response.end(JSON.stringify({ response: response }));
     } else {
       this.response.writeHead(200, {
         "Content-Type": "image/jpg",
       });
-      this.response.write(message);
+      this.response.write(response);
       this.response.end();
     }
   };

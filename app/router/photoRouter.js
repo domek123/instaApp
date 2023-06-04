@@ -39,7 +39,7 @@ const photoRouter = async (request, response) => {
         response.writeHead(200, {
           "Content-Type": "text/plain;charset=utf-8",
         });
-        response.end(JSON.stringify({ message: "dodano zdjęcie" }));
+        response.end(JSON.stringify({ response: "dodano zdjęcie" }));
       } else if (url.match(/\/api\/photos\/([0-9]+)/) && method == "GET") {
         let data = getSelected(getIdFromUrl(url));
         resp.getResponse(data);
@@ -74,6 +74,7 @@ const photoRouter = async (request, response) => {
       ) {
         const albumName = url.split("/").pop();
         const data = getImagesFromAlbum(albumName);
+        console.log(data);
         resp.getResponse(data);
       } else if (
         url.match(/\/api\/getfile\/([0-9]+)\/([a-z]+)/) &&
@@ -90,7 +91,7 @@ const photoRouter = async (request, response) => {
       }
     } else {
       resp.getResponse(
-        JSON.stringify({ code: 401, message: "wrong authentication" })
+        JSON.stringify({ code: 401, response: "wrong authentication" })
       );
     }
   }

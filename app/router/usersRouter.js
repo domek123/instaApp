@@ -23,7 +23,7 @@ const usersRouter = async (request, response) => {
     let data = await getRequestData(request);
     resp.getResponse(await loginUser(JSON.parse(data)));
   } else if (url == "/api/user" && method == "GET") {
-    resp.getResponse({ code: 200, message: userArray });
+    resp.getResponse({ code: 200, response: userArray });
   }
 };
 

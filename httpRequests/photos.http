@@ -1,4 +1,5 @@
 POST http://localhost:3000/api/photos HTTP/1.1
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAYS5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCQxYVBoakVtaERoM2Fmd3prN1Yya0lPU1U5LmJITXZYeHBjdVBsaG12QVB0VVoyelpZUE0yNiIsImlhdCI6MTY4NTg3MDM1MywiZXhwIjoxNjg1ODcwOTUzfQ.MoHXTd0O2MepLUF1aTRDLibKauC3UlzxmjsCccZrxF0
 Content-Type: multipart/form-data; boundary=----FormBoundary1234
 
 ------FormBoundary1234
@@ -17,6 +18,7 @@ album
 #####
 
 GET http://localhost:3000/api/photos HTTP/1.1
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAYS5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCQxYVBoakVtaERoM2Fmd3prN1Yya0lPU1U5LmJITXZYeHBjdVBsaG12QVB0VVoyelpZUE0yNiIsImlhdCI6MTY4NTg3MDM1MywiZXhwIjoxNjg1ODcwOTUzfQ.MoHXTd0O2MepLUF1aTRDLibKauC3UlzxmjsCccZrxF0
 
 ####
 GET http://localhost:3000/api/photos/1681720626953 HTTP/1.1

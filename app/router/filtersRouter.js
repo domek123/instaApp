@@ -19,7 +19,7 @@ const filtersRouter = async (request, res) => {
       }
     } else {
       resp.getResponse(
-        JSON.stringify({ code: 401, message: "wrong authentication" })
+        JSON.stringify({ code: 401, response: "wrong authentication" })
       );
     }
   }

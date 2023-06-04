@@ -12,14 +12,14 @@ module.exports = {
             let meta = await sharp(path).metadata();
             resolve(meta);
           } else {
-            resolve({ code: 404, message: "url_not_found" });
+            resolve({ code: 404, response: "url_not_found" });
           }
         } catch (err) {
-          reject({ code: 400, message: err.mesage });
+          reject({ code: 400, response: err.mesage });
         }
       });
     } else {
-      return { code: 404, message: "photo does no exist" };
+      return { code: 404, response: "photo does no exist" };
     }
   },
   filterPhoto: async (data) => {
@@ -67,19 +67,19 @@ module.exports = {
                 await sharp(path).tint({ r, g, b }).toFile(newPath);
                 break;
               default:
-                return { code: 404, message: "brak podanej opcji" };
+                return { code: 404, response: "brak podanej opcji" };
             }
             resolve(image);
             image.HistoryChange(filter, newPath);
           } else {
-            resolve({ code: 404, message: "url_not_found" });
+            resolve({ code: 404, response: "url_not_found" });
           }
         } catch (err) {
           reject(err.mesage);
         }
       });
     } else {
-      return { code: 404, message: "photo does no exist" };
+      return { code: 404, response: "photo does no exist" };
     }
   },
 };
