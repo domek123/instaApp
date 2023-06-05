@@ -1,6 +1,7 @@
 const fs = require("fs");
 const { Image, ImageArray } = require("../model");
 const formidable = require("formidable");
+const { HttpResp } = require("../HttpResponse");
 
 const createFolder = (albumName) => {
   const dir = `./upload/${albumName}`;
@@ -17,12 +18,15 @@ module.exports = {
   createFolder: (albumName) => {
     createFolder(albumName);
   },
-  savePhoto: (request) => {
+  savePhoto: (request, imgName, response) => {
+    const resp = new HttpResp(response);
     const form = new formidable.IncomingForm();
     form.parse(request, async (err, fields, files) => {
       createFolder(fields.album);
       const oldPath = files.file.path;
-      const name = files.file.path.split("\\").pop();
+      console.log(imgName);
+      const name = imgName == "" ? files.file.path.split("\\").pop() : imgName;
+      console.log(imgName);
       let dirn = __dirname.replace("app", "").replace("controller", "");
 
       var newpath = dirn + `upload/${fields.album}/${name}.jpg`;
@@ -33,6 +37,8 @@ module.exports = {
         } else {
           const img = new Image(fields.album, files.file.name, newpath);
           ImageArray.push(img);
+          resp.se;
+          resp.getResponse({ code: 200, response: img });
         }
       });
     });

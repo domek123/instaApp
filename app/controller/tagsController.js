@@ -14,9 +14,9 @@ module.exports = {
       return { code: 404, response: "brak taga o podanym id" };
     }
   },
-  addTag: (name, popularity) => {
+  addTag: (name) => {
     if (tags.find((tag) => tag.getName() == name) == undefined) {
-      tags.push(new Tag(tags.length, name, popularity));
+      tags.push(new Tag(tags.length, name, 100));
       return { code: 200, response: "Dodano nowy tag:" + name };
     } else {
       return { code: 400, response: "podany tag już istnieje" };

@@ -17,10 +17,7 @@ const profileRouter = async (request, response) => {
         let data = await getRequestedData(request);
         resp.getResponse(UpdateUser(data, token));
       } else if (url == "/api/profile" && method == "POST") {
-        savePhoto(request);
-        response.writeHead(200, {
-          "Content-Type": "text/plain;charset=utf-8",
-        });
+        savePhoto(request, "profile", response);
       } else if (url == "/api/logout" && method == "POST") {
       }
     } else {

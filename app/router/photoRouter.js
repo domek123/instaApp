@@ -61,11 +61,7 @@ const photoRouter = async (request, response) => {
     let token = headerAuth.split(" ")[1];
     if (verifyToken(token) != null) {
       if (url == "/api/photos" && method == "POST") {
-        savePhoto(request);
-        response.writeHead(200, {
-          "Content-Type": "text/plain;charset=utf-8",
-        });
-        response.end(JSON.stringify({ response: "dodano zdjęcie" }));
+        savePhoto(request, "", response);
       } else if (url.match(/\/api\/photos\/([0-9]+)/) && method == "DELETE") {
         const data = deletePhoto(getIdFromUrl(url));
         resp.getResponse(data);

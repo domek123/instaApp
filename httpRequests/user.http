@@ -21,5 +21,5 @@ Content-Type: application/json
 }
 
 ### get users
-GET http://localhost:3000/api/user
+GET http://localhost:3000/api/user/a@a.com
 

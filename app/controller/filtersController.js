@@ -69,7 +69,7 @@ module.exports = {
               default:
                 return { code: 404, response: "brak podanej opcji" };
             }
-            resolve(image);
+            resolve({ code: 200, response: image });
             image.HistoryChange(filter, newPath);
           } else {
             resolve({ code: 404, response: "url_not_found" });

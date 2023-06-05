@@ -13,10 +13,11 @@ GET http://localhost:3000/api/filters/metadata/1684360621425 HTTP/1.1
 ### - negate - {}
 ### - tint - {"r":255,"g":0,"b":0}
 PATCH http://localhost:3000/api/filters HTTP/1.1
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAYS5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCR1dGNaZmNBdVlSRWM1dDlGMm8wdEouT2p6U3N3alNCaDRON3VBQm05WHhXRmFEYmZzS3lGbSIsImlhdCI6MTY4NTkwMDk0OSwiZXhwIjoxNjg1OTAxNTQ5fQ.8SX8w5EDp_N5R2jkpCN4LbSFANU1vnPF9d2PHdG8Gx0
 Content-Type: application/json
 
 {
-    "id":1685198174083,
+    "id":1685979812924,
     "filter":"tint",
     "options":{"r":255,"g":0,"b":0}
 }
