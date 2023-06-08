@@ -39,9 +39,8 @@ const photoRouter = async (request, response) => {
     resp.getResponse(returnedData);
   } else if (url.match(/\/api\/photos\/([a-zA-Z0-9@.]+)/) && method == "GET") {
     const albumName = url.split("/").pop();
-    console.log(albumName);
+
     const data = getImagesFromAlbum(albumName);
-    console.log(data);
     resp.getResponse(data);
   } else if (
     url.match(/\/api\/getfile\/([0-9]+)\/([a-z]+)/) &&
@@ -87,9 +86,7 @@ const photoRouter = async (request, response) => {
         resp.getResponse(returnedData);
       } else if (url == "/api/photos/location" && method == "PATCH") {
         let data = await getRequestData(request);
-        console.log(data);
         data = addLocation(JSON.parse(data));
-        console.log(data);
         resp.getResponse(data);
       }
     } else {

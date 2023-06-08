@@ -19,7 +19,6 @@ const TagsRouter = async (request, response) => {
       if (url == "/api/tags/raw" && method == "GET") {
         resp.getResponse(getRawTags());
       } else if (url == "/api/tags" && method == "GET") {
-        console.log(getTags());
         resp.getResponse(getTags());
       } else if (url.match(/\/api\/tags\/([0-9]+)/) && method == "GET") {
         const id = url.split("/").pop();

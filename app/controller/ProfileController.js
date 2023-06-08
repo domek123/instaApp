@@ -11,7 +11,6 @@ module.exports = {
   },
   UpdateUser: (data, token) => {
     const { name, email } = JSON.parse(data);
-    console.log(name, email);
     const user = userArray.find((user) => user.getEmail() == email);
     if (user != undefined) {
       console.log("zatwierdzono");
