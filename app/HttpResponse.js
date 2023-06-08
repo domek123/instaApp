@@ -10,7 +10,7 @@ class HttpResp {
     this.response.end(JSON.stringify({ response: response }));
   };
 
-  getPhotoResponse = (data) => {
+  getPhotoResponse = (data, format) => {
     const { code, response } = data;
     if (code != 200) {
       this.response.writeHead(code, {
@@ -19,7 +19,7 @@ class HttpResp {
       this.response.end(JSON.stringify({ response: response }));
     } else {
       this.response.writeHead(200, {
-        "Content-Type": "image/jpg",
+        "Content-Type": format,
       });
       this.response.write(response);
       this.response.end();

@@ -15,7 +15,6 @@ const TagsRouter = async (request, response) => {
   if (headerAuth && headerAuth.startsWith("Bearer")) {
     // czytam dane z nagłowka
     let token = headerAuth.split(" ")[1];
-    console.log(token);
     if (verifyToken(token) != null) {
       if (url == "/api/tags/raw" && method == "GET") {
         resp.getResponse(getRawTags());

@@ -5,6 +5,7 @@ class Image {
     this.originalName = originalName;
     this.url = url;
     this.lastChange = "original";
+    this.location = "";
     this.history = [
       {
         status: "original",
@@ -35,6 +36,9 @@ class Image {
   }
   getAlbumName() {
     return this.album;
+  }
+  setLocation(location) {
+    this.location = location;
   }
 }
 

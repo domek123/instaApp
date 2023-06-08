@@ -13,6 +13,7 @@ const {
   addTags,
   getTags,
   getImagesFromAlbum,
+  addLocation,
 } = require("../controller/jsonController");
 
 require("../utils/getRequestedData");
@@ -53,7 +54,11 @@ const photoRouter = async (request, response) => {
   } else if (url.match(/\/api\/getfile\/([0-9]+)/) && method == "GET") {
     const id = getIdFromUrl(url);
     const data = getPhotoById(id);
-    resp.getPhotoResponse(data);
+    resp.getPhotoResponse(data, "image/jpg");
+  } else if (url.match(/\/api\/getvideo\/([0-9]+)/) && method == "GET") {
+    const id = getIdFromUrl(url);
+    const data = getPhotoById(id);
+    resp.getPhotoResponse(data, "video/mp4");
   }
   const headerAuth = request.headers.authorization;
   if (headerAuth && headerAuth.startsWith("Bearer")) {
@@ -80,6 +85,12 @@ const photoRouter = async (request, response) => {
         const { id, tags } = JSON.parse(data);
         const returnedData = addTags(id, tags);
         resp.getResponse(returnedData);
+      } else if (url == "/api/photos/location" && method == "PATCH") {
+        let data = await getRequestData(request);
+        console.log(data);
+        data = addLocation(JSON.parse(data));
+        console.log(data);
+        resp.getResponse(data);
       }
     } else {
       resp.getResponse(

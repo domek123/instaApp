@@ -24,12 +24,11 @@ module.exports = {
     form.parse(request, async (err, fields, files) => {
       createFolder(fields.album);
       const oldPath = files.file.path;
-      console.log(imgName);
+      const ext = files.file.name.split(".")[1] == "jpg" ? ".jpg" : ".mp4";
       const name = imgName == "" ? files.file.path.split("\\").pop() : imgName;
-      console.log(imgName);
       let dirn = __dirname.replace("app", "").replace("controller", "");
 
-      var newpath = dirn + `upload/${fields.album}/${name}.jpg`;
+      var newpath = dirn + `upload/${fields.album}/${name}${ext}`;
       let rawData = fs.readFileSync(oldPath);
       fs.writeFile(newpath, rawData, function (err) {
         if (err) {
@@ -37,7 +36,6 @@ module.exports = {
         } else {
           const img = new Image(fields.album, files.file.name, newpath);
           ImageArray.push(img);
-          resp.se;
           resp.getResponse({ code: 200, response: img });
         }
       });

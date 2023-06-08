@@ -55,4 +55,11 @@ module.exports = {
     );
     return { code: 200, response: albumImages };
   },
+  addLocation: (data) => {
+    if (!data.id) return { code: 404, response: "brak podanego id" };
+    const photo = ImageArray.find((item) => item.getId() == data.id);
+    if (!photo) return { code: 404, response: "brak zdjecia" };
+    photo.setLocation(data.location);
+    return { code: 200, response: "dodano lokalizacje" };
+  },
 };

@@ -4,7 +4,7 @@ const photoRouter = require(routerPath + "photoRouter");
 const tagsRouter = require(routerPath + "tagsRouter");
 const filtersRouter = require(routerPath + "filtersRouter");
 const usersRouter = require(routerPath + "usersRouter");
-const profileRouter = require(routerPath + "profileRouter")
+const profileRouter = require(routerPath + "profileRouter");
 require("dotenv").config();
 const ip = Object.values(require("os").networkInterfaces()).reduce(
   (r, list) =>
@@ -23,7 +23,8 @@ http
   .createServer(async (req, res) => {
     if (
       req.url.search("/api/photos") != -1 ||
-      req.url.search("/api/getfile") != -1
+      req.url.search("/api/getfile") != -1 ||
+      req.url.search("/api/getvideo") != -1
     ) {
       await photoRouter(req, res);
     } else if (req.url.search("/api/tags") != -1) {
@@ -32,8 +33,8 @@ http
       await filtersRouter(req, res);
     } else if (req.url.search("/api/user") != -1) {
       await usersRouter(req, res);
-    } else if(req.url.search("/api/profile") != -1){
-      await profileRouter(req,res);
+    } else if (req.url.search("/api/profile") != -1) {
+      await profileRouter(req, res);
     }
   })
   .listen(process.env.APP_PORT, () =>

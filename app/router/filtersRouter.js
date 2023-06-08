@@ -15,7 +15,6 @@ const filtersRouter = async (request, res) => {
         resp.getResponse(await getMetadata(id));
       } else if (url == "/api/filters" && method == "PATCH") {
         let data = await getRequestData(request);
-        console.log("XDDD");
         resp.getResponse(await filterPhoto(data));
       }
     } else {

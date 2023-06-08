@@ -22,6 +22,9 @@ Content-Type: application/json
     "options":{"r":255,"g":0,"b":0}
 }
 
+###
+GET http://localhost:3000/api/getvideo/1686230009414
+
 ### get photo
 GET http://localhost:3000/api/getfile/1685885562013
 authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAYS5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCQxYVBoakVtaERoM2Fmd3prN1Yya0lPU1U5LmJITXZYeHBjdVBsaG12QVB0VVoyelpZUE0yNiIsImlhdCI6MTY4NTg3MDM1MywiZXhwIjoxNjg1ODcwOTUzfQ.MoHXTd0O2MepLUF1aTRDLibKauC3UlzxmjsCccZrxF0
